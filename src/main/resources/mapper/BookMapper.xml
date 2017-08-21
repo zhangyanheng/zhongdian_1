@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.three.zhongdian.book.mapper.BookMapper">
+
+    <resultMap id="findAll" type="com.three.zhongdian.book.po.Book">
+        <id column="id" property="id"></id>
+        <result column="name" property="name"></result>
+        <result column="words" property="words"></result>
+        <result column="author" property="author"></result>
+        <result column="section" property="section"></result>
+        <result column="click" property="click"></result>
+        <result column="picpath" property="picpath"></result>
+        <result column="filepath" property="filepath"></result>
+        <result column="info" property="info"></result>
+        <result column="status" property="status"></result>
+        <result column="bid" property="bid"></result>
+        <association property="bigType" javaType="com.three.zhongdian.book.po.BigType">
+            <id column="bigtypeid" property="id"></id>
+            <result column="bigtypename" property="name"></result>
+        </association>
+    </resultMap>
+
+
+   <!-- <resultMap id="findtype" tyBigTypeType">
+        <id column="bigtypeid" property="id"></id>
+        <result column="bigtypename" property="name"></result>
+        <collection property="smallTypes" ofType="com.three.zhongdian.po.SmallType">
+            <id column="smalltypeid" property="id"></id>
+            <result column="smalltypename" property="name"></result>
+            <result column="bid" property="bid"></result>
+        </collection>
+    </resultMap>-->
+    <select id="findBookAll" resultMap="findAll">
+		select
+            book.id,
+            book.name,
+            book.words,
+            book.author,
+            book.section,
+            book.click,
+            book.picpath,
+            book.filepath,
+            book.info,
+            book.status,
+            book.bid,
+            b.id bigtypeid,
+            b.name bigtypename
+          from  book book ,bigtype b where book.bid = b.id
+	</select>
+
+    <select id="findBigType" resultType="com.three.zhongdian.book.po.BigType">
+        select * from bigtype
+    </select>
+    <select id="findBookByType" parameterType="int" resultMap="findAll">
+        select
+            book.id,
+            book.name,
+            book.words,
+            book.author,
+            book.section,
+            book.click,
+            book.picpath,
+            book.filepath,
+            book.info,
+            book.status,
+            book.bid,
+            b.id bigtypeid,
+            b.name bigtypename
+          from  book book ,bigtype b where book.bid = b.id and b.id = #{id}
+    </select>
+    <select id="findTypeById" parameterType="int" resultType="com.three.zhongdian.book.po.BigType">
+    select * from bigtype where id = #{id}
+    </select>
+
+    <select id="findBookByMap" parameterType="java.util.Map" resultMap="findAll">
+         select
+        book.id,
+        book.name,
+        book.words,
+        book.author,
+        book.section,
+        book.click,
+        book.picpath,
+        book.filepath,
+        book.info,
+        book.status,
+        book.bid,
+        b.id bigtypeid,
+        b.name bigtypename
+
+        from  book book ,bigtype b where book.bid = b.id
+          <if test="type!=null">
+               and b.id = #{type.id}
+          </if>
+        <if test="status != null">
+            and #{status.name} = book.status
+        </if>
+        <if test="words!=null">
+            and book.words >#{words.min} and   #{words.max} > book.words
+        </if>
+        <if test="orders!=null">
+            ORDER BY ${orders.name} DESC
+        </if>
+        <if test="page!=null">
+            limit #{page.min},#{page.max}
+        </if>
+
+    </select>
+    <select id="findBookById" parameterType="int" resultMap="findAll">
+        SELECT * FROM book WHERE id = #{id}
+    </select>
+
+    <select id="findBookByName" parameterType="java.lang.String" resultMap="findAll">
+          select
+            book.id,
+            book.name,
+            book.words,
+            book.author,
+            book.section,
+            book.click,
+            book.picpath,
+            book.filepath,
+            book.info,
+            book.status,
+            book.bid,
+            b.id bigtypeid,
+            b.name bigtypename
+
+          from  book book ,bigtype b where book.bid = b.id and  book.name LIKE '%${value}%'
+    </select>
+
+    <insert id="insertComment" parameterType="com.three.zhongdian.book.po.Comment">
+        insert into comment (content,date,uid,bid) values (#{content},#{date},#{uid},#{bid})
+    </insert>
+    
+    <resultMap id="findComment" type="com.three.zhongdian.book.po.Comment">
+        <id property="id" column="id"></id>
+        <result property="content" column="content"></result>
+        <result property="date" column="date"></result>
+        <association property="user" javaType="com.three.zhongdian.user.entity.User">
+            <result column="username" property="username"></result>
+            <result column="password" property="password"></result>
+            <result column="nickname" property="nickname"></result>
+        </association>
+    </resultMap>
+
+    <select id="findComment" parameterType="int" resultMap="findComment">
+        SELECT * from comment c,user u where c.uid = u.id and c.bid = #{id} order by date desc
+    </select>
+
+</mapper>
