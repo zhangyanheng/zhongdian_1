@@ -8,6 +8,6 @@
     select * from author where authorNname=#{authorNname}
 </select>
 <select id="selectByAuthorName" parameterType="String" resultType="com.three.zhongdian.book.po.Book">
-    select a.*, b.*  from author a,book b where a.aid=b.aid and  a.authorNname=#{authorNname}
+    select a.*, b.*  from author a,book b where a.aid=b.aid and  b.author=#{author}
 </select>
 </mapper>

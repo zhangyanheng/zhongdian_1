@@ -121,8 +121,8 @@
                 <a class="header-avatar-vip icon icon-gv" href="//www.qidian.com/help/index/7" target="_blank"></a>
             </div>
             <div class="header-msg">
-                <h3 id="elUidWrap" data-id="108412013" th:text="${au.name}"><a href="//my.qidian.com/user/108412013">我是耳根</a><a class="header-msg-level" href="//www.qidian.com/help/index/14" target="_blank">Lv19</a></h3>
-                <div class="header-msg-desc"><b th:text="${au.sex}"></b>&nbsp;/&nbsp;<b th:text="${au.provinces}"></b></div>
+                <h3 id="elUidWrap" data-id="108412013" th:text="${au.authorNname}"><a href="//my.qidian.com/user/108412013">我是耳根</a><a class="header-msg-level" href="//www.qidian.com/help/index/14" target="_blank">Lv19</a></h3>
+                <div class="header-msg-desc"><b th:text="${au.sex}"></b>&nbsp;/&nbsp;<b th:text="${au.province}"></b></div>
 
                 <div class="header-msg-title" >称号: <b th:text="${au.designation}"></b></div>
 
@@ -184,12 +184,7 @@
                 </div>
                 <div class="user-sidebar-head" data-l2="4">大神之光<span class="disabled fr">暂无</span></div>
             </div>
-            <div class="user-sidebar-wrapper">
-                <h3 class="user-sidebar-title">足迹</h3>
-                <ul class="user-sidebar-list ui-loading" id="elHistoryWrap" style="height: 150px;">
-                    <li class="ui-loading-icon"></li>
-                </ul>
-            </div>
+
         </div>
         <div class="user-content" >
 
@@ -204,15 +199,7 @@
             </div>
 
             <h2 class="user-title user-honor">粉丝荣誉</h2>
-            <div id="elFansHonorWrap">
-                <ul id="fansHonorTab" class="user-honor-list" data-l2="4">
-                    <li class="ui-loading" style="height:62px;">
-                        <i class="ui-loading-icon"></i>
-                    </li>
-                </ul>
-                <div class="user-honor-book qdp-border" id="elTabCon">
-                </div>
-            </div>
+
         </div>
 
         <div class="go-top dn">
@@ -231,7 +218,6 @@
     <script id="tplFansHonor" type="text/ejs-template">
         <% data.config.forEach(function(obj,index){ var mNum = (index != 10 ?  index + 253 : 279 ) ; var rid=index + 1  %>
         <% if(obj.friendGetCnt != 0 ){ %>
-        <a href="javascript:" class="user-honor-item <%= obj.friendGetCnt == 0 ? '' : 'elCanTab' %>" data-index="<%= obj.levelId %>" data-rel="<%= obj.levelId %>" data-eid="qd_M<%= mNum %>" data-rid="<%= rid %>" >
             <div class="user-honor-num"><%= obj.friendGetCnt %></div>
             <div class="user-honor-title"><%= obj.levelName %></div>
         </a>

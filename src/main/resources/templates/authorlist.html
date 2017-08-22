@@ -120,11 +120,11 @@
                 <span class="header-avatar-vip author-darkblue">白金</span>
             </div>
             <div class="header-msg">
-                <a th:href="@{findByAuthorName(name=${au.authorNname})}" class="header-msg-tosingle" target="_blank">个人主页</a>
+                <a th:href="@{selectByAuthorName(name=${au.authorNname})}" class="header-msg-tosingle" target="_blank">个人主页</a>
                     <h3><b th:text="${au.authorNname }"></b><a class="header-msg-level icon icon-god-5" href="/author/light/4362453" title="level5" target="_blank">level2</a></h3>
                 <div class="header-msg-desc"><b th:text="${au.authorintroduce}"></b></div>
                 <div class="header-msg-data">
-                    <span class="mr12">作品总数<stronFg class="header-msg-strong"><b th:text="${au.productionCount}"></b></stronFg></span><span class="ml12 mr12">累计字数<strong class="header-msg-strong"><b th:text="${au.wordsCount}"></b></strong>万</span><span class="ml12 mr12">创作天数<strong class="header-msg-strong"><b th:text="${au.writeDays}"></b></strong>天</div></span>
+                    <span class="mr12">作品总数<stronFg class="header-msg-strong"><b th:text="${au.productionCount}"></b></stronFg></span><span class="ml12 mr12">累计字数<strong class="header-msg-strong"><b th:text="${au.wordsCount}"></b></strong>万</span><span class="ml12 mr12">创作天数<strong class="header-msg-strong"><b th:text="${au.writeDays}"></b></strong>天</span></div>
             </div>
         </div>
     </div>
